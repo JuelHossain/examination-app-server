@@ -13,8 +13,12 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  admin: {
+    type: Boolean,
+    required: true,
+  },
 });
 
-const Users = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
-module.exports = Users;
+module.exports = User;
