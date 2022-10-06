@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 const { connect } = require("mongoose");
 const { notFoundHandler, errorHandler } = require("./middlewares/errorHandler");
+const userRouter = require("./routers/userRouter");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -18,6 +19,9 @@ app.use(express.json());
     console.log(err);
   }
 })();
+
+// routers
+app.use("/user", userRouter);
 
 // error handlers
 app.use(notFoundHandler);
