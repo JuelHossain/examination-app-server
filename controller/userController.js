@@ -20,18 +20,23 @@ const login = async (req, res) => {
     const { user } = req.headers;
     const { email, password } = JSON.parse(user) || {};
     const data = await User.findOne({ email });
-    if (password) {
-      const hashedPassword = data.password;
-      const matched = await bcrypt.compare(password, hashedPassword);
-      if (matched) {
-        res.send(data);
+    if (data) {
+      if (password) {
+        const hashedPassword = data.password;
+        const matched = await bcrypt.compare(password, hashedPassword);
+        if (matched) {
+          res.send(data);
+        } else {
+          res.send("Password doesn't Match");
+        }
       } else {
-        res.send("Password doesn't Match");
+        res.send("Please provide a password");
       }
     } else {
-      res.send("Please provide a password");
+      res.send("User Not found");
     }
   } catch (err) {
+    console.log(err);
     res.send("something went wrong");
   }
 };

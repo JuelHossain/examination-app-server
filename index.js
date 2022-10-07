@@ -4,6 +4,7 @@ require("dotenv").config();
 const { connect } = require("mongoose");
 const { notFoundHandler, errorHandler } = require("./middlewares/errorHandler");
 const userRouter = require("./routers/userRouter");
+const examsRouter = require("./routers/examsRouter");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -22,6 +23,7 @@ app.use(express.json());
 
 // routers
 app.use("/user", userRouter);
+app.use("/exams",examsRouter)
 
 // error handlers
 app.use(notFoundHandler);
