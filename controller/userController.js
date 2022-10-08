@@ -58,6 +58,7 @@ const getUsers = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { params: { id } = {}, body } = req;
+
     const data = await User.findByIdAndUpdate(id, body, { new: true });
     res.send(data);
   } catch (err) {
