@@ -44,13 +44,10 @@ const deleteExam = async (req, res) => {
 const getExams = async (req, res) => {
   try {
     const { email } = req.query;
-    if (email) {
-      const data = await Exam.find({ "createdBy.email": email });
-      res.send(data);
-    } else {
-      const data = await Exam.find();
-      res.send(data);
-    }
+    const data = await Exam.find(
+      email === "undefined" ? {} : { "createdBy.email": email }
+    );
+    res.send(data);
   } catch (err) {
     console.log(err);
     res.send("there was something wrong");

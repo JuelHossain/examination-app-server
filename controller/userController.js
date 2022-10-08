@@ -41,4 +41,49 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+// get users
+
+const getUsers = async (req, res) => {
+  try {
+    const { admin } = req.query;
+    const data = await User.find({
+      admin: admin === "undefined" ? false : true,
+    });
+    res.send(data);
+  } catch (err) {
+    console.log(err);
+    res.send("something went wrong");
+  }
+};
+const updateUser = async (req, res) => {
+  try {
+    const { params: { id } = {}, body } = req;
+    const data = await User.findByIdAndUpdate(id, body, { new: true });
+    res.send(data);
+  } catch (err) {
+    console.log(err);
+    res.send("something went wrong");
+  }
+};
+const getUser = async (req, res) => {
+  try {
+    const { params: { id } = {} } = req;
+    const data = await User.findById(id);
+    res.send(data);
+  } catch (err) {
+    console.log(err);
+    res.send("something went wrong");
+  }
+};
+const deleteUser = async (req, res) => {
+  try {
+    const { params: { id } = {} } = req;
+    const data = await User.findByIdAndDelete(id);
+    res.send(data);
+  } catch (err) {
+    console.log(err);
+    res.send("something went wrong");
+  }
+};
+
+module.exports = { register, login, getUsers, updateUser, getUser, deleteUser };
