@@ -21,9 +21,12 @@ app.use(express.json());
   }
 })();
 
+app.get("/", (req, res) => {
+  res.send("hi, little friend. server is running no-worries");
+});
 // routers
 app.use("/user", userRouter);
-app.use("/exams",examsRouter)
+app.use("/exams", examsRouter);
 
 // error handlers
 app.use(notFoundHandler);
